@@ -1,61 +1,60 @@
 package org.example.service;
 
 import lombok.NoArgsConstructor;
-import org.example.model.*;
+import org.example.model.ClasseResume;
+import org.example.model.Coupling;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 @NoArgsConstructor
 public class CouplingService {
 
-    private int globalTot=0;
+    public ArrayList<Coupling> extractValue(HashMap<String, ClasseResume> resume, int total) {
+        float tot = 0;
+        ArrayList<Coupling> couplings = new ArrayList<>();
 
-    public HashMap<String, ClasseResume> preTreatment(HashMap<String, Classe> classes) {
+        for (String key1 : resume.keySet())
+        {
+            ClasseResume classe1 = resume.get(key1);
 
-        HashMap<String, ClasseResume> classeResumes = new HashMap<>();
+            for (String key2 : classe1.getCountByClass().keySet())
+            {
+                int value1 = classe1.getCountByClass().get(key2);
 
+                int value2 = 0;
+                if (resume.get(key2) != null && resume.get(key2).getCountByClass().get(key1) != null) {
+                    value2 = resume.get(key2).getCountByClass().get(key1);
+                }
 
-
-         for (Classe classe : classes.values())
-         {
-             int localTot =0;
-             HashMap<String, Integer> countByClass = new HashMap<>();
-//             System.out.println("----> " + classe.getName() );
-             if (classe.getMethods().isEmpty())continue;
-
-             for (Method method : classe.getMethods().values())
-             {
-                 if (method.getInvocations().isEmpty())continue;
-//                 System.out.println(method.getName());
-//                 System.out.println(method.getParameters());
-                 for(Inv invocation : method.getInvocations())
-                 {
-
-//                     System.out.println(invocation.toString());
-                     if (invocation instanceof InvMethod )
-                     {
-                         int val = 0;
-                         if (countByClass.get(((InvMethod) invocation).getInstance()  )!= null) val = countByClass.get(((InvMethod) invocation).getInstance());
-                         val+=1;
-                         localTot+=1;
-                         countByClass.put(((InvMethod) invocation).getInstance(),val);
-                         continue;
-                     }
-                     if (invocation instanceof InvContruct )
-                     {
-                         int val = 0;
-                         if (countByClass.get(((InvContruct) invocation).getInstance()  )!= null) val = countByClass.get(((InvContruct) invocation).getInstance());
-                         val+=1;
-                         localTot+=1;
-                         countByClass.put(((InvContruct) invocation).getInstance(),val);
-                         continue;
-                     }
-                 }
-             }
-             classeResumes.put(classe.getName(),ClasseResume.builder().name(classe.getName()).tot(localTot).countByClass(countByClass).build());
-             globalTot = globalTot+localTot;
-         }
-
-        return classeResumes;
+                float resultat = calculate(value1,value2,total);
+                tot+=resultat;
+                HashSet<String> keyCouple = new HashSet<>();
+                keyCouple.add(key1);
+                keyCouple.add(key2);
+                couplings.add(Coupling.builder().classes(keyCouple).value(resultat).build());
+            }
+        }
+        System.err.println(tot);
+        return couplings;
     }
+
+
+
+    private float calculate(
+            int incomingRelationships,
+            int outgoingRelationships,
+            int totalBinaryMethodRelations
+    ) {
+        DecimalFormat df = new DecimalFormat("0.0000");
+        String formattedResult = df.format((float) (incomingRelationships + outgoingRelationships) / totalBinaryMethodRelations);
+
+        // Remplacer la virgule par un point pour obtenir un format de nombre à virgule flottante valide
+        formattedResult = formattedResult.replace(',', '.');
+
+        return Float.parseFloat(formattedResult);
+    }
+
 }
