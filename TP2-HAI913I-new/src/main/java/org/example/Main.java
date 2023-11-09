@@ -39,7 +39,7 @@ public class Main {
         CouplingService couplingService = new CouplingService();
         ArrayList<Coupling> couplings = couplingService.extractValue(resume,total);
 
-        couplings.forEach(System.out::println);
+//        couplings.forEach(System.out::println);
 
         //Graph de couplage
         CouplingTemplate couplingTemplate = new CouplingTemplate();

@@ -34,10 +34,12 @@ public class PreTreatmentService {
                  {
 
 
+//                     System.out.println(invocation);
                      if (invocation instanceof InvMethod )
                      {
 
-                         if (((InvMethod) invocation).getInstance()!=null && !((InvMethod) invocation).getInstance().equals("THIS")){
+                         if (((InvMethod) invocation).getInstance()!=null && !((InvMethod) invocation).getInstance().equals("THIS")
+                         ){
                              int val = 0;
                              if (countByClass.get(((InvMethod) invocation).getInstance()) != null)
                                  val = countByClass.get(((InvMethod) invocation).getInstance());
@@ -52,7 +54,9 @@ public class PreTreatmentService {
                          if (((InvContruct) invocation).getInstance()!=null)
                          {
                              int val = 0;
-                             if (countByClass.get(((InvContruct) invocation).getInstance()) != null && !((InvContruct) invocation).getInstance().equals("THIS"))
+
+                             if (countByClass.get(((InvContruct) invocation).getInstance()) != null && !((InvContruct) invocation).getInstance().equals("THIS") )
+
                                  val = countByClass.get(((InvContruct) invocation).getInstance());
                              val += 1;
                              localTot += 1;

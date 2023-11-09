@@ -37,7 +37,7 @@ public class CouplingService {
                 couplings.add(Coupling.builder().classes(keyCouple).value(resultat).build());
             }
         }
-        System.err.println(tot);
+//        System.err.println(tot);
         return couplings;
     }
 

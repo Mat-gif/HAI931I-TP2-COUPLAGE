@@ -82,7 +82,6 @@ public class ExtractService {
             if (field == null) continue;
             // stock mes attributs
             fds.put(field.getName(),field);
-//                System.out.println(fieldName);
         }
         return fds;
     }
