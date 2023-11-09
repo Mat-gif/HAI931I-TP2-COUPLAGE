@@ -33,6 +33,7 @@ public class PreTreatmentService {
                  for(Inv invocation : method.getInvocations())
                  {
 
+
 //                     System.out.println(invocation);
                      if (invocation instanceof InvMethod )
                      {
@@ -55,6 +56,7 @@ public class PreTreatmentService {
                              int val = 0;
 
                              if (countByClass.get(((InvContruct) invocation).getInstance()) != null && !((InvContruct) invocation).getInstance().equals("THIS") )
+
                                  val = countByClass.get(((InvContruct) invocation).getInstance());
                              val += 1;
                              localTot += 1;
