@@ -70,7 +70,7 @@ public class AstService {
         MethodService service = new MethodService();
         String name = String.format("%s.%s.%s",currentPackage,currentClass,service.extractName(methodDeclaration));
 //        System.out.println("    ---> "+name);
-
+//
         HashMap<String, Argument> parameters = service.extractParameters(methodDeclaration,  imports, currentPackage);
 
 //        if (parameters != null)parameters.values().forEach(System.out::println);
@@ -82,6 +82,7 @@ public class AstService {
         methodDeclaration.accept(enhancedForStatementVisitor);
 
         HashMap<String, Variable> variables= service.extractVar(enhancedForStatementVisitor,imports,currentPackage);
+//        if (parameters != null)variables.values().forEach(System.out::println);
 
         VariableDeclarationFragmentVisitor variableDeclarationFragmentVisitor = new VariableDeclarationFragmentVisitor();
         methodDeclaration.accept(variableDeclarationFragmentVisitor);
