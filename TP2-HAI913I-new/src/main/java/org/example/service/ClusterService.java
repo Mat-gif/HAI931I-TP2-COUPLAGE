@@ -22,13 +22,13 @@ public class ClusterService {
         if(modules.isEmpty()) {
             modules.add(new Module());
         }
-        if (moyenne>cp && modules.size() <= nModule)
+        if (moyenne>cp && modules.size() +1 <= nModule)
         {
             modules.getLast().getClasses().addAll(classeAB);
             modules.getLast().setMoyenne(moyenne);
             return;
         }
-        if(moyenne<cp && modules.size() <= nModule)
+        if(moyenne<cp && modules.size() +1 <= nModule)
         {
             modules.add(new Module());
             tot=1;

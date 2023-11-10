@@ -88,7 +88,7 @@ public class MethodService {
         for (VariableDeclarationFragment   cons : constructorInvocationVisitor.getFrags())
         {
 
-            if(cons.getInitializer().resolveTypeBinding() != null )
+            if(cons.getInitializer() != null && cons.getInitializer().resolveTypeBinding() != null)
             {
                 String name =  cons.getName().getFullyQualifiedName();
                 if(cons.getInitializer() instanceof ClassInstanceCreation)

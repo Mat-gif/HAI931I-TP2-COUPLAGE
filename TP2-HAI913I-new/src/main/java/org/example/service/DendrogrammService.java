@@ -99,13 +99,10 @@ public class DendrogrammService {
             myMap.put(coupling.getClasses(),coupling.getValue());
         }
 
-        // Convert the map entries to a list
         List<Map.Entry<Set<String>, Float>> entryList = new ArrayList<>(myMap.entrySet());
 
-        // Sort the list based on the values
         entryList.sort(Comparator.comparing(Map.Entry::getValue));
 
-        // Create a new LinkedHashMap to preserve the order of insertion
         LinkedHashMap<Set<String>, Float> sortedMap = new LinkedHashMap<>();
         for (Map.Entry<Set<String>, Float> entry : entryList) {
             sortedMap.put(entry.getKey(), entry.getValue());

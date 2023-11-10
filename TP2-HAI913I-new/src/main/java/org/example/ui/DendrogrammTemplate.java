@@ -130,7 +130,7 @@ public class DendrogrammTemplate {
             }
 
 
-            System.out.println(nModule +" -> "+ clusterService.getModules().size());
+            System.out.println("nModule: "+ nModule +" ->  nbClusters : "+ clusterService.getModules().size());
             clusterService.getModules().forEach(System.err::println);
 
             showGraph(graph, feuille);
