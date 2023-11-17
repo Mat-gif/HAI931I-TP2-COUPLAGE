@@ -30,8 +30,13 @@ public class CouplingTemplate {
 
             for (Coupling couple : couplings)
             {
+//                if(couple.getClasses().size() <= 1) continue;
+
                 String classe1 = (String) couple.getClasses().toArray()[0];
+                System.out.println(classe1);
                 String classe2 = (String) couple.getClasses().toArray()[1];
+                System.out.println(classe2);
+
                 Object sommet1 = sommets.get(classe1);
                 Object sommet2 = sommets.get(classe2);
 

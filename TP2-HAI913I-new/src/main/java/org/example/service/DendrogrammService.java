@@ -30,6 +30,7 @@ public class DendrogrammService {
             ArrayList<Set<String>> list =  new ArrayList<>();
             HashSet<String> key1 = new HashSet<>();
             HashSet<String> key2 = new HashSet<>();
+//            if(coupling.getClasses().size() <= 1) continue;
             String classe1 = (String) coupling.getClasses().toArray()[0];
             String classe2 = (String) coupling.getClasses().toArray()[1];
             key1.add(classe1);

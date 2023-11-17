@@ -60,6 +60,7 @@ public class PreTreatmentService {
                                  val = countByClass.get(((InvContruct) invocation).getInstance());
                              val += 1;
                              localTot += 1;
+                             if (((InvContruct) invocation).getInstance().equals(classe.getName())) continue;
                              countByClass.put(((InvContruct) invocation).getInstance(), val);
                          }
                          continue;

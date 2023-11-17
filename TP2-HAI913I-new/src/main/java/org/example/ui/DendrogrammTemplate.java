@@ -70,6 +70,7 @@ public class DendrogrammTemplate {
 
                 List<Set<String>> classesComposantes = keys.get(classeAB);
 
+
                 // Sommet du couplage
                 Set<String> classeA =  classesComposantes.get(0);
                 Set<String> classeB =  classesComposantes.get(1);

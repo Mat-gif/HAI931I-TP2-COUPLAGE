@@ -17,12 +17,12 @@ import smile.io.*;
 
 public class Main {
 
-//    private static final String path = "/home/mathieu/Documents/TP01_Poo-master/TP01_Poo";
+    private static final String path = "/home/mathieu/Documents/TP01_Poo-master/TP01_Poo";
 //    private static final String path = "C:\\Users\\victo\\eclipse-workspace\\HAI822I";
 //    private static final String path = "C:\\Users\\victo\\Downloads\\TP01_Poo-master\\TP01_Poo";
 //    private static final String path = "C:\\Users\\victo\\eclipse-workspace\\promotions";
 //
-        private static final String path = "/home/mathieu/Téléchargements/promotions";
+//        private static final String path = "/home/mathieu/Téléchargements/promotions(1)/promotions";
     private static final AstService service = new AstService();
 
 
@@ -37,8 +37,13 @@ public class Main {
         ExtractService extractService = new ExtractService();
         classes  = extractService.browse(parserEclipse);
 
-        classes.values().forEach(System.out::println);
+//        classes.values().forEach(System.out::println);
 
+//        classes.forEach((k,v)->{
+//            if(k.equals("promotions.Etudiant")) System.out.println(v);
+//        });
+
+//        System.out.println(" ");
         //Pretraitement pour couplage
         PreTreatmentService preTreatmentService = new PreTreatmentService();
         HashMap<String, ClasseResume>  resume =preTreatmentService.preTreatment(classes);
@@ -49,17 +54,17 @@ public class Main {
         //Calcul coupling
         CouplingService couplingService = new CouplingService();
         ArrayList<Coupling> couplings = couplingService.extractValue(resume,total);
-
+//        System.out.println(" ");
 //        couplings.forEach(System.out::println);
-
+//        System.out.println(" ");
         //Graph de couplage
-//        CouplingTemplate couplingTemplate = new CouplingTemplate();
-//        couplingTemplate.createGraph(couplings);
-
+        CouplingTemplate couplingTemplate = new CouplingTemplate();
+        couplingTemplate.createGraph(couplings);
+//
         int numRow = couplingService.classes.size();
         DendrogrammTemplate dendrogrammTemplate = new DendrogrammTemplate();
         dendrogrammTemplate.createGraph(couplings,numRow);
-
+//
 
 //        couplingService.classes;
 
