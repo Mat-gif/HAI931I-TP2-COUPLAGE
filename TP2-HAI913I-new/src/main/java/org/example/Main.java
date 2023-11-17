@@ -37,7 +37,7 @@ public class Main {
         ExtractService extractService = new ExtractService();
         classes  = extractService.browse(parserEclipse);
 
-//        classes.values().forEach(System.out::println);
+        classes.values().forEach(System.out::println);
 
         //Pretraitement pour couplage
         PreTreatmentService preTreatmentService = new PreTreatmentService();
@@ -50,7 +50,7 @@ public class Main {
         CouplingService couplingService = new CouplingService();
         ArrayList<Coupling> couplings = couplingService.extractValue(resume,total);
 
-        couplings.forEach(System.out::println);
+//        couplings.forEach(System.out::println);
 
         //Graph de couplage
 //        CouplingTemplate couplingTemplate = new CouplingTemplate();
