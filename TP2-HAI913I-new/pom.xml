@@ -71,13 +71,9 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
             <version>1.18.30</version>
             <scope>compile</scope>
+            <optional>true</optional>
         </dependency><!-- https://mvnrepository.com/artifact/org.openjfx/javafx -->
         <dependency>
             <groupId>com.github.haifengl</groupId>

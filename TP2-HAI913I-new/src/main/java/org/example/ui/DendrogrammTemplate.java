@@ -54,6 +54,7 @@ public class DendrogrammTemplate {
 
             HashMap<Set<String>, List<Set<String>>> keys = service.initCoupleClasses(couplings);
             LinkedHashMap<Set<String>,Float> values = service.initTest(couplings);
+
 //            PairCluster pairCluster = PairCluster.builder().classes(new LinkedList<LinkedList<Object>>()).values(new LinkedList<Float>()).build();
 
 
