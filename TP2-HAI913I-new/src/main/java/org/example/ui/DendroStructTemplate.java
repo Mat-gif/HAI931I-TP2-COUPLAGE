@@ -13,6 +13,7 @@ import org.example.service.ClusterService;
 import org.example.service.DendrogrammService;
 
 import javax.swing.*;
+import javax.xml.transform.stream.StreamSource;
 import java.awt.*;
 import java.util.List;
 import java.util.*;
@@ -20,32 +21,34 @@ import java.util.*;
 @NoArgsConstructor
 public class DendroStructTemplate {
 
-    private static final float CP = 0.15F;
+    private static final float CP = 0.03F;
     private int nModule ;
-    private Map<Set<String>,Object> sommets = new HashMap<>();
 
     private List<Object> dendrogramme = new ArrayList<>();
 
     private List<Float> couplingValuesList = new ArrayList<>();
 
+    private List<Object> clusters = new ArrayList<>();
+
     public void createDendroStruct(ArrayList<Coupling> couplings) {
 
         //affichage des valeurs de couplage
-        System.out.println("\n\n#-- VALEURS DE COUPLAGE INITIALE--#");
-        for(Coupling couple : couplings){
-            System.out.println(couple);
-        }
+//        System.out.println("\n\n#-- VALEURS DE COUPLAGE INITIALE--#");
+//        for(Coupling couple : couplings){
+//            System.out.println(couple);
+//        }
 
         ArrayList<Coupling> couplingsRestants = couplings;
         couplingValuesList.add(0f);
 
+
         //tant que toutes les valeurs de couplages ne sont pas traitees
         while(!couplingsRestants.isEmpty()){
 
-            System.out.println("\n\n#-- VALEURS DE COUPLAGE (en construction) --#");
-            for(Coupling couple : couplingsRestants){
-                System.out.println(couple);
-            }
+//            System.out.println("\n\n#-- VALEURS DE COUPLAGE (en construction) --#");
+//            for(Coupling couple : couplingsRestants){
+//                System.out.println(couple);
+//            }
 
             //Recuperation de la valeur max de couplage et des classes associees
             Set<String> maxCoupleClassNames = null;
@@ -100,8 +103,8 @@ public class DendroStructTemplate {
             }
 
 
-            System.out.println("\n#---- Dendrogramme en construction ----#");
-            System.out.println(newDendrogramme);
+//            System.out.println("\n#---- Dendrogramme en construction ----#");
+//            System.out.println(newDendrogramme);
             dendrogramme = newDendrogramme;
 
 
@@ -142,12 +145,22 @@ public class DendroStructTemplate {
 
         System.out.println("\n\n#-- DENDROGRAMME --#");
         printDendro(dendrogramme, 0);
+
         System.out.println("\n#-- DENDROGRAMME (structure) --#");
         System.out.println(dendrogramme);
+
         System.out.println("\n#-- VALEURS DE COUPLAGES à chaque niveau --#");
         System.out.println(couplingValuesList);
 
+        System.out.println("\n#-- Max Clusters pour l'app : " + nModule + " | cp : " + CP + " --#");
+        System.out.println("Profondeur : " + profondeurCluster(CP, couplingValuesList));
 
+        System.out.println("\n#-- CLUSTERS --#");
+        this.clusters = clusters(profondeurCluster(CP, couplingValuesList), dendrogramme);
+        System.out.println("Nombre de cluster : " +clusters.size());
+        for(Object cl : clusters){
+            System.out.println("--"+cl);
+        }
     }
 
     private boolean existInDendro(List<Object> dendro, String className) {
@@ -176,6 +189,40 @@ public class DendroStructTemplate {
                 System.out.println(item);
             }
         }
+    }
+
+
+    public void setNModule(int nbClass){
+        this.nModule=nbClass/2;
+    }
+
+    public int profondeurCluster(Float CP, List<Float> couplingValuesList){
+
+        Float v = couplingValuesList.get(couplingValuesList.size() - 1);
+        for (int i = couplingValuesList.size() - 2; i >= 0; i--) {
+            if(v-couplingValuesList.get(i) < CP){
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    public List<Object> clusters(int profondeur, List<Object> dendrogramme ){
+        List<Object> clusters = new ArrayList<>();
+
+        for (Object item : dendrogramme) {
+            if (item instanceof List) {
+                if(profondeur > 1) {
+                    clusters.addAll(clusters(profondeur - 1, (List<Object>) item));
+                } else {
+                    clusters.add(item);
+                }
+            } else {
+                clusters.add(item);
+            }
+        }
+
+        return clusters;
     }
 }
 
