@@ -26,6 +26,7 @@ public class DendroStructTemplate {
 
     private List<Object> dendrogramme = new ArrayList<>();
 
+    private List<Float> couplingValuesList = new ArrayList<>();
 
     public void createDendroStruct(ArrayList<Coupling> couplings) {
 
@@ -36,24 +37,29 @@ public class DendroStructTemplate {
         }
 
         ArrayList<Coupling> couplingsRestants = couplings;
+        couplingValuesList.add(0f);
 
         //tant que toutes les valeurs de couplages ne sont pas traitees
         while(!couplingsRestants.isEmpty()){
 
             System.out.println("\n\n#-- VALEURS DE COUPLAGE (en construction) --#");
-            for(Coupling couple : couplings){
+            for(Coupling couple : couplingsRestants){
                 System.out.println(couple);
             }
 
             //Recuperation de la valeur max de couplage et des classes associees
             Set<String> maxCoupleClassNames = null;
-            float maxCoupleClassValue = 0;
+            float maxCoupleClassValue = Float.MIN_VALUE;
+
             for(Coupling couple : couplings){
                 if(couple.getValue()>maxCoupleClassValue){
                     maxCoupleClassValue = couple.getValue();
                     maxCoupleClassNames = couple.getClasses();
                 }
             }
+
+
+            couplingValuesList.add(maxCoupleClassValue+couplingValuesList.get(couplingValuesList.size()-1));
 
             //Determination des classes du plus grand couplage qui ne sont pas dans le dendro existant
             List<String> classeAAjouter = new ArrayList<>();
@@ -99,53 +105,48 @@ public class DendroStructTemplate {
             dendrogramme = newDendrogramme;
 
 
-
-            ArrayList<Coupling> couplingsCopy = couplings;
-
             //remove de copyOfResultsCoupling le couplage maxKey,maxValue
-
-            for (Coupling couple :  couplingsCopy) {
+            for (Coupling couple : couplings) {
                 if(couple.getClasses() == maxCoupleClassNames && couple.getValue() == maxCoupleClassValue) {
-                    couplingsCopy.remove(couple);
+                    couplings.remove(couple);
                     break;
                 }
             }
             //Si deux set ont les memes classes, suppr tous sauf 1 et additionner les couplages
-            ArrayList<Coupling> copyOfResultsCouplingTempo = new ArrayList<>();
-            for (Coupling couple : couplingsCopy) {
-                HashSet<String> classNames = couple.getClasses();
+            HashSet<Coupling> copyOfResultsCouplingTempo = new HashSet<>();
+            for (int i = 0; i < couplings.size(); i++){
+                HashSet<String> classNames = couplings.get(i).getClasses();
                 float value = 0;
-                for (Coupling coupleATester : couplingsCopy) {
-                    System.out.println("#######################################");
+                for (int j = 0; j < couplings.size(); j++){
                     //verif les deux objets et parcourir pour voir s'ils ont les memes string
-                    System.out.println("1 "+classNames);
-                    System.out.println("2 "+coupleATester.getClasses());
-                    System.out.println("contient les memes ? : "+setsHaveSameElements(coupleATester.getClasses(), classNames));
-                    System.out.println("objets différents ? : "+!Objects.equals(coupleATester.getValue(), couple.getValue()));
-                    if(coupleATester.getClasses().toString().equals(classNames.toString()) && !Objects.equals(coupleATester.getValue(), couple.getValue())) {
-//                    if(setsHaveSameElements(coupleATester.getClasses(), classNames) && !Objects.equals(coupleATester.getValue(), couple.getValue())) {
-                        value = coupleATester.getValue()+couple.getValue();
-                        System.out.println("DING DING DING "+value);
+                    if(couplings.get(j).getClasses().toString().equals(classNames.toString()) && !(i == j)) {
+                        value = couplings.get(j).getValue()+ couplings.get(i).getValue();
                     }
                 }
-                if (value>0) { 
-                    copyOfResultsCouplingTempo.add(new Coupling((HashSet<String>) classNames, value));
-                    System.err.println("######"+copyOfResultsCouplingTempo);
+
+                if (value>0) {
+                    Coupling newCoupleFusion = new Coupling((HashSet<String>) classNames, value);
+                    if(!copyOfResultsCouplingTempo.contains(newCoupleFusion)){
+                        copyOfResultsCouplingTempo.add(newCoupleFusion);
+                    }
                 } else {
-                    copyOfResultsCouplingTempo.add(couple);
+                    Coupling newCoupleFusion = couplings.get(i);
+                    if(!Objects.equals(newCoupleFusion.getClasses().toString(), maxCoupleClassNames.toString())) {
+                        copyOfResultsCouplingTempo.add(couplings.get(i));
+                    }
                 }
             }
-
-            couplingsRestants = copyOfResultsCouplingTempo;
-            System.out.println("okdgdlgjdklgjlkdfgjkldfgjn~################");
-            System.out.println((couplingsRestants));
-            System.out.println((copyOfResultsCouplingTempo));
+            couplingsRestants = new ArrayList<>(copyOfResultsCouplingTempo);
+            couplings = couplingsRestants;
         }
 
         System.out.println("\n\n#-- DENDROGRAMME --#");
         printDendro(dendrogramme, 0);
         System.out.println("\n#-- DENDROGRAMME (structure) --#");
         System.out.println(dendrogramme);
+        System.out.println("\n#-- VALEURS DE COUPLAGES à chaque niveau --#");
+        System.out.println(couplingValuesList);
+
 
     }
 
@@ -170,25 +171,11 @@ public class DendroStructTemplate {
             } else {
                 // Ajoute des espaces pour décaler l'affichage en fonction de la profondeur
                 for (int i = 0; i < depth; i++) {
-                    System.out.print("-----");
+                    System.out.print("°-----");
                 }
                 System.out.println(item);
             }
         }
-    }
-
-    private static boolean setsHaveSameElements(Set<String> set1, Set<String> set2) {
-        if (set1.size() != set2.size()) {
-            return false;
-        }
-
-        for (String item : set1) {
-            if (!set2.contains(item)) {
-                return false;
-            }
-        }
-
-        return true;
     }
 }
 
