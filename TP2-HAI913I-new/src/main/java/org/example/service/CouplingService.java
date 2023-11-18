@@ -31,17 +31,31 @@ public class CouplingService {
                     value2 = resume.get(key2).getCountByClass().get(key1);
                 }
 
+                System.out.println(key1+" "+key2);
                 float resultat = calculate(value1,value2,total);
-                tot+=resultat;
+
                 HashSet<String> keyCouple = new HashSet<>();
                 keyCouple.add(key1);
                 keyCouple.add(key2);
                 classes.add(key1);
                 classes.add(key2);
-                couplings.add(Coupling.builder().classes(keyCouple).value(resultat).build());
+                boolean exist = false;
+                for (Coupling coupling : couplings)
+                {
+                    if (coupling.getClasses().equals(keyCouple)) {
+                        exist = true;
+
+                        break;
+                    }
+                }
+
+                if (!exist) {
+                    tot+=resultat;
+                    couplings.add(Coupling.builder().classes(keyCouple).value(resultat).build());
+                }
             }
         }
-//        System.err.println(tot);
+        System.err.println(tot);
         return couplings;
     }
 
