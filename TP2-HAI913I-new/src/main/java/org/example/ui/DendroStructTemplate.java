@@ -112,27 +112,29 @@ public class DendroStructTemplate {
             }
             //Si deux set ont les memes classes, suppr tous sauf 1 et additionner les couplages
             ArrayList<Coupling> copyOfResultsCouplingTempo = new ArrayList<>();
-            for (Coupling couple : couplingsCopy) {
-                HashSet<String> classNames = couple.getClasses();
+//            for (Coupling couple : couplingsCopy) {
+            for (int i = 0; i < couplingsCopy.size(); i++){
+                HashSet<String> classNames = couplingsCopy.get(i).getClasses();
                 float value = 0;
-                for (Coupling coupleATester : couplingsCopy) {
+//                for (Coupling coupleATester : couplingsCopy) {
+                    for (int j = 0; j < couplingsCopy.size(); j++){
                     System.out.println("#######################################");
                     //verif les deux objets et parcourir pour voir s'ils ont les memes string
-                    System.out.println("1 "+classNames);
-                    System.out.println("2 "+coupleATester.getClasses());
-                    System.out.println("contient les memes ? : "+setsHaveSameElements(coupleATester.getClasses(), classNames));
-                    System.out.println("objets différents ? : "+!Objects.equals(coupleATester.getValue(), couple.getValue()));
-                    if(coupleATester.getClasses().toString().equals(classNames.toString()) && !Objects.equals(coupleATester.getValue(), couple.getValue())) {
+                        System.out.println("1 "+classNames + " ---> " + i);
+                        System.out.println("2 "+couplingsCopy.get(j).getClasses() + " ---> " + j);
+                        System.out.println("contient les memes ? : "+setsHaveSameElements(couplingsCopy.get(j).getClasses(), classNames));
+                        System.out.println("objets différents ? : "+ !(i == j));
+                    if(couplingsCopy.get(j).getClasses().toString().equals(classNames.toString()) && !(i == j)) {
 //                    if(setsHaveSameElements(coupleATester.getClasses(), classNames) && !Objects.equals(coupleATester.getValue(), couple.getValue())) {
-                        value = coupleATester.getValue()+couple.getValue();
+                        value = couplingsCopy.get(j).getValue()+couplingsCopy.get(i).getValue();
                         System.out.println("DING DING DING "+value);
                     }
                 }
-                if (value>0) { 
+                if (value>0) {
                     copyOfResultsCouplingTempo.add(new Coupling((HashSet<String>) classNames, value));
                     System.err.println("######"+copyOfResultsCouplingTempo);
                 } else {
-                    copyOfResultsCouplingTempo.add(couple);
+                    copyOfResultsCouplingTempo.add(couplingsCopy.get(i));
                 }
             }
 

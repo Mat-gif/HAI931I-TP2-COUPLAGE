@@ -41,7 +41,6 @@ public class BindingService {
               {
                   InvContruct construct = constructsMap.get(((InvMethod) invocation).getObj());
                   if (construct != null) {
-                      // mon invocation est un element qui a été crée dans le bode de la méthode
                       ((InvMethod) invocation).setInstance(construct.getInstance());
                       continue;
                   }
@@ -51,7 +50,6 @@ public class BindingService {
               {
                   Variable variable = variables.get(((InvMethod) invocation).getObj());
                   if (variable != null) {
-                      // mon invocation est un element qui a été crée dans le bode de la méthode
                       ((InvMethod) invocation).setInstance(variable.getType());
                       continue;
                   }
