@@ -120,22 +120,26 @@ public class DendroStructTemplate {
                     //verif les deux objets et parcourir pour voir s'ils ont les memes string
                     System.out.println("1 "+classNames);
                     System.out.println("2 "+coupleATester.getClasses());
-                    System.out.println(coupleATester.getClasses().toString().equals(classNames.toString()));
-                    System.out.println(!Objects.equals(coupleATester.getValue(), couple.getValue()));
+                    System.out.println("contient les memes ? : "+setsHaveSameElements(coupleATester.getClasses(), classNames));
+                    System.out.println("objets différents ? : "+!Objects.equals(coupleATester.getValue(), couple.getValue()));
                     if(coupleATester.getClasses().toString().equals(classNames.toString()) && !Objects.equals(coupleATester.getValue(), couple.getValue())) {
+//                    if(setsHaveSameElements(coupleATester.getClasses(), classNames) && !Objects.equals(coupleATester.getValue(), couple.getValue())) {
                         value = coupleATester.getValue()+couple.getValue();
                         System.out.println("DING DING DING "+value);
                     }
                 }
-                if (value!=0) {
+                if (value>0) { 
                     copyOfResultsCouplingTempo.add(new Coupling((HashSet<String>) classNames, value));
-                    System.out.println("KDFJGSKDLGHDKJG"+copyOfResultsCouplingTempo);
+                    System.err.println("######"+copyOfResultsCouplingTempo);
                 } else {
                     copyOfResultsCouplingTempo.add(couple);
                 }
             }
 
             couplingsRestants = copyOfResultsCouplingTempo;
+            System.out.println("okdgdlgjdklgjlkdfgjkldfgjn~################");
+            System.out.println((couplingsRestants));
+            System.out.println((copyOfResultsCouplingTempo));
         }
 
         System.out.println("\n\n#-- DENDROGRAMME --#");
@@ -171,6 +175,20 @@ public class DendroStructTemplate {
                 System.out.println(item);
             }
         }
+    }
+
+    private static boolean setsHaveSameElements(Set<String> set1, Set<String> set2) {
+        if (set1.size() != set2.size()) {
+            return false;
+        }
+
+        for (String item : set1) {
+            if (!set2.contains(item)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
 
