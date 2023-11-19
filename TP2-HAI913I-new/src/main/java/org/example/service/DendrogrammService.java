@@ -92,26 +92,35 @@ public class DendrogrammService {
 
 
 
+    /**
+     * Initialise et retourne une LinkedHashMap triée à partir d'une liste de couplages.
+     * @param couplings La liste de couplages à traiter.
+     * @return Une LinkedHashMap triée avec des ensembles de chaînes en tant que clés et des valeurs Float.
+     */
     public LinkedHashMap<Set<String>, Float> initTest(ArrayList<Coupling> couplings) {
 
+        // Crée une HashMap pour stocker les correspondances entre les classes couplés et les valeurs
         Map<Set<String>, Float> myMap = new HashMap<>();
-        for (Coupling coupling : couplings)
-        {
-            myMap.put(coupling.getClasses(),coupling.getValue());
+
+        // Remplit la HashMap avec les données des couplages
+        for (Coupling coupling : couplings) {
+            myMap.put(coupling.getClasses(), coupling.getValue());
         }
 
+        // Convertit les entrées de la HashMap en une liste pour le tri
         List<Map.Entry<Set<String>, Float>> entryList = new ArrayList<>(myMap.entrySet());
 
+        // Trie la liste des entrées en fonction des valeurs Float
         entryList.sort(Comparator.comparing(Map.Entry::getValue));
 
+        // Crée une nouvelle LinkedHashMap triée à partir de la liste triée
         LinkedHashMap<Set<String>, Float> sortedMap = new LinkedHashMap<>();
         for (Map.Entry<Set<String>, Float> entry : entryList) {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
 
+        // Retourne la LinkedHashMap triée
         return sortedMap;
-
-
     }
 
 

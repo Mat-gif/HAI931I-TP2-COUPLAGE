@@ -151,7 +151,7 @@ public class DendrogrammTemplate {
         organizeCellsManually(graph, feuille);
         graph.getModel().endUpdate();
         mxGraphComponent graphComponent = new mxGraphComponent(graph);
-        graphComponent.setPreferredSize(new Dimension(800, 800));frame.getContentPane().add(graphComponent);
+        graphComponent.setPreferredSize(new Dimension(1200, 600));frame.getContentPane().add(graphComponent);
         frame.getContentPane().add(graphComponent);
 //        graphComponent.zoomTo(0.5,true);
         frame.pack();
