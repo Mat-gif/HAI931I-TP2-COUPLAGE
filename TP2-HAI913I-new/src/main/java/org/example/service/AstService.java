@@ -80,7 +80,7 @@ public class AstService {
 //
         HashMap<String, Argument> parameters = service.extractParameters(methodDeclaration,  imports, currentPackage);
 
-        if(name.equals("promotions.Etudiant.Etudiant") && parameters != null && parameters.values().size() ==7 ) System.err.println(fields);
+//        if(name.equals("promotions.Etudiant.Etudiant") && parameters != null && parameters.values().size() ==7 ) System.err.println(fields);
 
 //        if (parameters != null)parameters.values().forEach(System.out::println);
 

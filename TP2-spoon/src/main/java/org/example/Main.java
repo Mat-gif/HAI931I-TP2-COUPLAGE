@@ -18,17 +18,58 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.filter.TypeFilter;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
-    private static String path = "/home/mathieu/Téléchargements/promotions(1)/promotions";
+    private static String path ;
 //   private static  String path = "/home/mathieu/Documents/TP01_Poo-master/TP01_Poo";
 
     private static HashMap<String, Classe> classes = new HashMap<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        System.out.println("████████╗████████╗██████╗░");
+        System.out.println("╚══██╔══╝██╔═══██╗╚════██╗");
+        System.out.println("░░░██║░░░███████╔╝░░░██╔═╝");
+        System.out.println("░░░██║░░░██╔═══╝░░░░██╔═╝░");
+        System.out.println("░░░██║░░░██║░░░░░░███████╗");
+        System.out.println("░░░╚═╝░░░╚═╝░░░░░░╚══════╝");
+
+
+
+
+        System.out.println();
+        Scanner scanner = new Scanner(System.in);
+        String projectPath = "";
+
+        while (true) {
+            System.out.print("Veuillez saisir le chemin du projet : ");
+            projectPath = scanner.nextLine();
+
+            // Vérifie si le chemin est valide en vérifiant s'il existe
+            File file = new File(projectPath+"/src");
+            if (file.exists() && file.isDirectory()) {
+                break; // Sort de la boucle si le chemin est valide
+            } else {
+                System.out.println("Chemin invalide. Veuillez saisir un chemin valide.");
+            }
+        }
+
+        System.out.println("Le chemin du projet que vous avez saisi est : " + projectPath);
+        path = projectPath;
+        run();
+
+        scanner.close();
+
+
+    }
+
+    public static void run() throws IOException {
+
         Launcher launcher = new Launcher();
         launcher.addInputResource(path);
         CtModel model = launcher.buildModel();
@@ -71,7 +112,5 @@ public class Main {
         DendroStructTemplate dendroStructTemplate = new DendroStructTemplate();
         dendroStructTemplate.setNModule(classes.size());
         dendroStructTemplate.createDendroStruct(coupling2s);
-
-
     }
-}
+    }
