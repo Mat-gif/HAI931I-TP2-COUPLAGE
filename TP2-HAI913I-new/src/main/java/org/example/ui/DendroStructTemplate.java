@@ -6,6 +6,7 @@ import com.mxgraph.model.mxGeometry;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxRectangle;
 import com.mxgraph.view.mxGraph;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.model.Coupling;
 import org.example.model.Pair;
@@ -19,9 +20,10 @@ import java.util.List;
 import java.util.*;
 
 @NoArgsConstructor
+@Getter
 public class DendroStructTemplate {
 
-    private static final float CP = 0.03F;
+    private float CP = 0.3F;
     private int nModule ;
 
     private List<Object> dendrogramme = new ArrayList<>();
@@ -198,9 +200,10 @@ public class DendroStructTemplate {
 
     public int profondeurCluster(Float CP, List<Float> couplingValuesList){
 
-        Float v = couplingValuesList.get(couplingValuesList.size() - 1);
+//        Float v = couplingValuesList.get(couplingValuesList.size() - 1);
         for (int i = couplingValuesList.size() - 2; i >= 0; i--) {
-            if(v-couplingValuesList.get(i) < CP){
+
+            if(couplingValuesList.get(i+1)-couplingValuesList.get(i) < CP){
                 return i;
             }
         }

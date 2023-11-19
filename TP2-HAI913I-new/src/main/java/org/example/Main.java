@@ -3,6 +3,7 @@ package org.example;
 import org.example.model.*;
 import org.example.parser.EclipseJDTParser;
 import org.example.service.*;
+import org.example.ui.ClusteringDetermination;
 import org.example.ui.CouplingTemplate;
 
 import java.awt.*;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 import org.example.ui.DendroStructTemplate;
 import org.example.ui.DendrogrammTemplate;
@@ -21,9 +23,9 @@ public class Main {
 //    private static final String path = "/home/mathieu/Documents/TP01_Poo-master/TP01_Poo";
 //    private static final String path = "C:\\Users\\victo\\eclipse-workspace\\HAI822I";
 //    private static final String path = "C:\\Users\\victo\\Downloads\\TP01_Poo-master\\TP01_Poo";
-//    private static final String path = "C:\\Users\\victo\\eclipse-workspace\\promotions";
+    private static final String path = "C:\\Users\\victo\\eclipse-workspace\\promotions";
 //
-        private static final String path = "/home/mathieu/Téléchargements/promotions(1)/promotions";
+//        private static final String path = "/home/mathieu/Téléchargements/promotions(1)/promotions";
     private static final AstService service = new AstService();
 
 
@@ -68,13 +70,17 @@ public class Main {
         dendroStructTemplate.createDendroStruct(coupling2s);
 
 
-
+        //Test de clustering 2 (non concluant)
+//        ClusteringDetermination clusterDeter = new ClusteringDetermination();
+//        clusterDeter.setCouplings(couplings);
+//        List<List<String>> clusters = clusterDeter.findClusters(dendroStructTemplate.getDendrogramme(),dendroStructTemplate.getNModule(),dendroStructTemplate.getCP());
+//
+//        System.err.println("#############"+clusters);
 
 
 
 //        couplingService.classes;
 
-        //
 //        int numRow = couplingService.classes.size();
 //        MatriceService matriceService = new MatriceService();
 //        double[][] matrix = matriceService.uptdateMatrix(numRow,couplings,couplingService.classes);

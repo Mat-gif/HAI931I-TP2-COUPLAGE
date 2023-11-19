@@ -8,6 +8,7 @@ import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxRectangle;
 import com.mxgraph.view.mxGraph;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.model.Coupling;
 import org.example.model.Pair;
@@ -23,6 +24,7 @@ import java.util.*;
 import java.util.List;
 
 @NoArgsConstructor
+@Getter
 public class DendrogrammTemplate {
 
     private static final int WIDTH_FRAME = 1000;
@@ -138,8 +140,8 @@ public class DendrogrammTemplate {
             }
 
 
-            System.out.println("nModule: "+ nModule +" ->  nbClusters : "+ clusterService.getModules().size());
-            clusterService.getModules().forEach(System.err::println);
+//            System.out.println("nModule: "+ nModule +" ->  nbClusters : "+ clusterService.getModules().size());
+//            clusterService.getModules().forEach(System.err::println);
 
             showGraph(graph, feuille);
         });
