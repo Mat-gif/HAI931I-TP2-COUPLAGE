@@ -14,7 +14,29 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <configuration>
+                    <mainClass>smile.shell.JavaShell</mainClass>
+                    <arguments>
+                        <argument>-J-Xmx30G</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
     <dependencies>
+<!--        <dependency>-->
+<!--            <groupId>fr.inria.gforge.spoon</groupId>-->
+<!--            <artifactId>spoon-core</artifactId>-->
+<!--            <version>8.2.0</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.eclipse.tycho</groupId>
             <artifactId>org.eclipse.jdt.core</artifactId>
@@ -49,16 +71,15 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
             <version>1.18.30</version>
             <scope>compile</scope>
+            <optional>true</optional>
         </dependency><!-- https://mvnrepository.com/artifact/org.openjfx/javafx -->
-
-
+        <dependency>
+            <groupId>com.github.haifengl</groupId>
+            <artifactId>smile-core</artifactId>
+            <version>3.0.1</version>
+        </dependency>
     </dependencies>
 
 </project>

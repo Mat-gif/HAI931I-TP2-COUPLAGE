@@ -12,6 +12,8 @@ import java.util.HashSet;
 @NoArgsConstructor
 public class CouplingService {
 
+    public HashSet<String> classes = new HashSet<>();
+
     public ArrayList<Coupling> extractValue(HashMap<String, ClasseResume> resume, int total) {
         float tot = 0;
         ArrayList<Coupling> couplings = new ArrayList<>();
@@ -34,6 +36,8 @@ public class CouplingService {
                 HashSet<String> keyCouple = new HashSet<>();
                 keyCouple.add(key1);
                 keyCouple.add(key2);
+                classes.add(key1);
+                classes.add(key2);
                 couplings.add(Coupling.builder().classes(keyCouple).value(resultat).build());
             }
         }
