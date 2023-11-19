@@ -2,6 +2,9 @@
 
 Le projet consiste en une série d'exercices visant à analyser et évaluer le couplage entre les classes au sein d'une application Java en utilisant à la fois Ecpise JDT et Spoon.
 
+ - TP2-HAI913I-new : version JDT
+ - TP2-spoon : version SPOON
+
 ## Installation
 
 ### Exécution via un fichier JAR pour la version Spoon (java-17)
