@@ -65,6 +65,10 @@ public class Main {
         DendrogrammTemplate dendrogrammTemplate = new DendrogrammTemplate();
         dendrogrammTemplate.createGraph(couplings,numRow);
 
+        DendroStructTemplate dendroStructTemplate = new DendroStructTemplate();
+        dendroStructTemplate.setNModule(classes.size());
+        dendroStructTemplate.createDendroStruct(couplings);
+
 
     }
 }
