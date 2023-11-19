@@ -15,6 +15,10 @@ import java.util.Objects;
 public class Coupling {
     private HashSet<String> classes;
     private float value;
+    public Coupling(HashSet<String> classes, float value) {
+        this.classes = classes;
+        this.value = value;
+    }
 
     @Override
     public boolean equals(Object o) {

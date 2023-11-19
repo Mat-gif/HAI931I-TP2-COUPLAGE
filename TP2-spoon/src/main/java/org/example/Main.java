@@ -8,6 +8,7 @@ import org.example.service.CouplingService;
 import org.example.service.MethodService;
 import org.example.service.PreTreatmentService;
 import org.example.ui.CouplingTemplate;
+import org.example.ui.DendroStructTemplate;
 import org.example.ui.DendrogrammTemplate;
 import spoon.Launcher;
 import spoon.reflect.CtModel;
@@ -55,6 +56,8 @@ public class Main {
         //Calcul coupling
         CouplingService couplingService = new CouplingService();
         ArrayList<Coupling> couplings = couplingService.extractValue(resume,total);
+        ArrayList<Coupling> coupling2s = couplingService.extractValue(resume,total);
+
 //        System.out.println(" ");
         couplings.forEach(System.out::println);
 
@@ -64,6 +67,10 @@ public class Main {
         int numRow = couplingService.classes.size();
         DendrogrammTemplate dendrogrammTemplate = new DendrogrammTemplate();
         dendrogrammTemplate.createGraph(couplings,numRow);
+
+        DendroStructTemplate dendroStructTemplate = new DendroStructTemplate();
+        dendroStructTemplate.setNModule(classes.size());
+        dendroStructTemplate.createDendroStruct(coupling2s);
 
 
     }
