@@ -7,8 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="TP2-HAI913I-new" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="TP2-HAI913I-new" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

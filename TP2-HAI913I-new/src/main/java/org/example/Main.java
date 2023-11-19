@@ -21,9 +21,9 @@ public class Main {
 //    private static final String path = "/home/mathieu/Documents/TP01_Poo-master/TP01_Poo";
 //    private static final String path = "C:\\Users\\victo\\eclipse-workspace\\HAI822I";
 //    private static final String path = "C:\\Users\\victo\\Downloads\\TP01_Poo-master\\TP01_Poo";
-    private static final String path = "C:\\Users\\victo\\eclipse-workspace\\promotions";
-
-//        private static final String path = "/home/mathieu/Téléchargements/promotions";
+//    private static final String path = "C:\\Users\\victo\\eclipse-workspace\\promotions";
+//
+        private static final String path = "/home/mathieu/Téléchargements/promotions(1)/promotions";
     private static final AstService service = new AstService();
 
 
@@ -50,21 +50,25 @@ public class Main {
         //Calcul coupling
         CouplingService couplingService = new CouplingService();
         ArrayList<Coupling> couplings = couplingService.extractValue(resume,total);
+        ArrayList<Coupling> coupling2s = couplingService.extractValue(resume,total);
 
         couplings.forEach(System.out::println);
 
+
+        //Graph de couplage
+        CouplingTemplate couplingTemplate = new CouplingTemplate();
+        couplingTemplate.createGraph(couplings);
+
+        int numRow = couplingService.classes.size();
+        DendrogrammTemplate dendrogrammTemplate = new DendrogrammTemplate();
+        dendrogrammTemplate.createGraph(couplings,numRow);
+
         DendroStructTemplate dendroStructTemplate = new DendroStructTemplate();
         dendroStructTemplate.setNModule(classes.size());
-        dendroStructTemplate.createDendroStruct(couplings);
+        dendroStructTemplate.createDendroStruct(coupling2s);
 
 
-//        //Graph de couplage
-//        CouplingTemplate couplingTemplate = new CouplingTemplate();
-//        couplingTemplate.createGraph(couplings);
-//
-//        int numRow = couplingService.classes.size();
-//        DendrogrammTemplate dendrogrammTemplate = new DendrogrammTemplate();
-//        dendrogrammTemplate.createGraph(couplings,numRow);
+
 
 
 
