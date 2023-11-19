@@ -3,9 +3,6 @@ package org.example.service;
 import lombok.NoArgsConstructor;
 import org.example.model.Coupling;
 import org.example.model.Pair;
-import org.example.model.PairCluster;
-import smile.data.type.ObjectType;
-
 
 import java.util.*;
 

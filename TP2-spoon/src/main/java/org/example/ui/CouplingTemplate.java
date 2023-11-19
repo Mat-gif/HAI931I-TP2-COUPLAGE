@@ -27,19 +27,14 @@ public class CouplingTemplate {
     public void createGraph(ArrayList<Coupling> couplings) {
         SwingUtilities.invokeLater(() -> {
             mxGraph graph = initGraph(frame);
-
             for (Coupling couple : couplings)
             {
-//                if(couple.getClasses().size() <= 1) continue;
-
                 String classe1 = (String) couple.getClasses().toArray()[0];
                 System.out.println(classe1);
                 String classe2 = (String) couple.getClasses().toArray()[1];
                 System.out.println(classe2);
-
                 Object sommet1 = sommets.get(classe1);
                 Object sommet2 = sommets.get(classe2);
-
                 // je trace mes deux sommets
                 if (sommet1 == null)
                 {
@@ -51,15 +46,12 @@ public class CouplingTemplate {
                     sommet2 = graph.insertVertex(parent, null, classe2, 20, 20, 80, 30);
                     sommets.put(classe2,sommet2);
                 }
-
                 mxRectangle dimensions1 = graph.getPreferredSizeForCell(sommet1);
                 mxRectangle dimensions2 = graph.getPreferredSizeForCell(sommet2);
                 graph.resizeCell(sommet1, dimensions1);
                 graph.resizeCell(sommet2, dimensions2);
-
                 // je trace un arc entre mes deux sommets
                 Object arc = graph.insertEdge(parent, null,couple.getValue(),sommet1,sommet2);
-
             }
             showGraph(graph);
         });

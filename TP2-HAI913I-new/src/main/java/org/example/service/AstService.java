@@ -35,6 +35,7 @@ public class AstService {
             return Type.builder()
                     .name(String.format("%s.%s", visitorPackage.getPackageName(), visitorType.getName()))
                     .type(visitorType.getType())
+                    .theConstruc( visitorType.getName())
                     .fieldDeclarations(visitorType.getFieldDeclarations())
                     .methodDeclarations(visitorType.getMethodDeclarations())
                     .build();
@@ -46,13 +47,18 @@ public class AstService {
 
 
 
-    public Field extractField(FieldDeclaration fieldDeclaration)
+    public Field extractField(FieldDeclaration fieldDeclaration, Type typeName)
     {
         FieldService service = new FieldService();
         String name = service.extractName(fieldDeclaration);
+
+//        if(typeName.getName().equals("promotions.Etudiant")) System.out.println("------"+ name);
 //        System.out.println(name);
 //        if (imports.isEmpty()) System.err.println("error");
-        String type = service.extractType(fieldDeclaration,  imports);
+        String type = service.extractType(fieldDeclaration,  imports,typeName, currentPackage);
+//        if(typeName.getName().equals("promotions.Etudiant")) System.out.println("++++++"+ type);
+
+
 
         if (type==null) return null;
 
@@ -67,11 +73,14 @@ public class AstService {
     {
 
 
+
         MethodService service = new MethodService();
         String name = String.format("%s.%s.%s",currentPackage,currentClass,service.extractName(methodDeclaration));
-//        System.out.println("    ---> "+name);
+//        if(name.equals("promotions.Etudiant.Etudiant"))System.err.println("    ---> "+name);
 //
         HashMap<String, Argument> parameters = service.extractParameters(methodDeclaration,  imports, currentPackage);
+
+        if(name.equals("promotions.Etudiant.Etudiant") && parameters != null && parameters.values().size() ==7 ) System.err.println(fields);
 
 //        if (parameters != null)parameters.values().forEach(System.out::println);
 
@@ -87,8 +96,9 @@ public class AstService {
         VariableDeclarationFragmentVisitor variableDeclarationFragmentVisitor = new VariableDeclarationFragmentVisitor();
         methodDeclaration.accept(variableDeclarationFragmentVisitor);
 
-        ArrayList<Inv> invocations= service.extractInvocations(methodInvocationVisitor,variableDeclarationFragmentVisitor, imports,currentPackage);
+        ArrayList<Inv> invocations= service.extractInvocations(methodInvocationVisitor,variableDeclarationFragmentVisitor, imports,currentPackage,currentClass);
 //        invocations.forEach(System.out::println);
+//        if(name.equals("promotions.Etudiant.Etudiant")) System.err.println( "1111"+invocations);
 
         BindingService  bindingService = new BindingService();
 //        System.out.println("***************");

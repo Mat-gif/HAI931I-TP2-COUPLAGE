@@ -14,6 +14,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 public class Type {
     private String name ;
     private String type ;
+    private String theConstruc;
     private FieldDeclaration[] fieldDeclarations;
     private MethodDeclaration[] methodDeclarations;
 

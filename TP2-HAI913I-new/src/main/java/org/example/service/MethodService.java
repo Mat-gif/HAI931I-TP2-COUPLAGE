@@ -70,7 +70,7 @@ public class MethodService {
             MethodInvocationVisitor methodInvocationVisitor,
             VariableDeclarationFragmentVisitor constructorInvocationVisitor,
             List<ImportDeclaration> imports,
-            String currentPackage
+            String currentPackage, String typeName
     ) {
         ArrayList<Inv> invovations = new ArrayList<>();
 
@@ -85,8 +85,10 @@ public class MethodService {
             }
         }
 
+        String test = String.format("%s.%s",currentPackage,typeName);
         for (VariableDeclarationFragment   cons : constructorInvocationVisitor.getFrags())
         {
+//            if(test.equals("promotions.Etudiant")) System.out.println("9999"+cons);
 
             if(cons.getInitializer() != null && cons.getInitializer().resolveTypeBinding() != null)
             {

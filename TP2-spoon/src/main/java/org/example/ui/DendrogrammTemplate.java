@@ -1,7 +1,7 @@
 package org.example.ui;
 
 
-import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
+import com.mxgraph.layout.mxCompactTreeLayout;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.swing.mxGraphComponent;
@@ -11,16 +11,12 @@ import com.mxgraph.view.mxGraph;
 import lombok.NoArgsConstructor;
 import org.example.model.Coupling;
 import org.example.model.Pair;
-import org.example.model.PairCluster;
-import org.example.service.ClusterService;
 import org.example.service.DendrogrammService;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 @NoArgsConstructor
 public class DendrogrammTemplate {
@@ -49,13 +45,12 @@ public class DendrogrammTemplate {
             nModule = Math.abs(m/2);
 //            System.err.println(nModule);
 
-            ClusterService clusterService = new ClusterService();
+//            ClusterService clusterService = new ClusterService();
 
 
 
             HashMap<Set<String>, List<Set<String>>> keys = service.initCoupleClasses(couplings);
             LinkedHashMap<Set<String>,Float> values = service.initTest(couplings);
-
 //            PairCluster pairCluster = PairCluster.builder().classes(new LinkedList<LinkedList<Object>>()).values(new LinkedList<Float>()).build();
 
 
@@ -79,17 +74,17 @@ public class DendrogrammTemplate {
                 // get sommet si ils existent
                 Object sommetA = sommets.get(classeA);
                 Object sommetB = sommets.get(classeB);
-                if (sommetA == null)
-                {
-                    if (sommetB == null)
-                    {
-                        clusterService.calcul(valueAB,classeAB,nModule,CP);
-                    }
-                    clusterService.calcul(valueAB,classeA,nModule,CP);
-                }else if(sommetB == null )
-                {
-                    clusterService.calcul(valueAB,classeB,nModule,CP);
-                }
+//                if (sommetA == null)
+//                {
+//                    if (sommetB == null)
+//                    {
+//                        clusterService.calcul(valueAB,classeAB,nModule,CP);
+//                    }
+//                    clusterService.calcul(valueAB,classeA,nModule,CP);
+//                }else if(sommetB == null )
+//                {
+//                    clusterService.calcul(valueAB,classeB,nModule,CP);
+//                }
 
                 //Sinon on les crees
                 if (sommetA == null) {
@@ -122,7 +117,7 @@ public class DendrogrammTemplate {
                 Object arcB_AB = graph.insertEdge(feuille, null,null,sommetB,sommetAB);
                 String edgeStyle =
                         mxConstants.STYLE_ROUNDED + "=false;" +
-                        mxConstants.STYLE_ELBOW + "=vertical";
+                                mxConstants.STYLE_ELBOW + "=vertical";
 
                 graph.getModel().setStyle(arcA_AB, edgeStyle);
                 graph.getModel().setStyle(arcB_AB, edgeStyle);
@@ -138,8 +133,8 @@ public class DendrogrammTemplate {
             }
 
 
-            System.out.println("nModule: "+ nModule +" ->  nbClusters : "+ clusterService.getModules().size());
-            clusterService.getModules().forEach(System.err::println);
+//            System.out.println("nModule: "+ nModule +" ->  nbClusters : "+ clusterService.getModules().size());
+//            clusterService.getModules().forEach(System.err::println);
 
             showGraph(graph, feuille);
         });
