@@ -22,7 +22,7 @@ public class Main {
 //    private static final String path = "C:\\Users\\victo\\Downloads\\TP01_Poo-master\\TP01_Poo";
 //    private static final String path = "C:\\Users\\victo\\eclipse-workspace\\promotions";
 //
-        private static final String path = "/home/mathieu/Téléchargements/promotions";
+        private static final String path = "/home/mathieu/Téléchargements/promotions(1)/promotions";
     private static final AstService service = new AstService();
 
 

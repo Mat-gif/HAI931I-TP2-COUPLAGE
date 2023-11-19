@@ -5,6 +5,7 @@ import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxRectangle;
 import com.mxgraph.view.mxGraph;
 import lombok.NoArgsConstructor;
@@ -118,7 +119,12 @@ public class DendrogrammTemplate {
 
                 Object arcA_AB = graph.insertEdge(feuille, null,null,sommetA,sommetAB);
                 Object arcB_AB = graph.insertEdge(feuille, null,null,sommetB,sommetAB);
+                String edgeStyle =
+                        mxConstants.STYLE_ROUNDED + "=false;" +
+                        mxConstants.STYLE_ELBOW + "=vertical";
 
+                graph.getModel().setStyle(arcA_AB, edgeStyle);
+                graph.getModel().setStyle(arcB_AB, edgeStyle);
                 values.remove(classeAB);
                 keys.remove(classeAB);
 
@@ -151,7 +157,7 @@ public class DendrogrammTemplate {
         mxGraphComponent graphComponent = new mxGraphComponent(graph);
         graphComponent.setPreferredSize(new Dimension(800, 800));frame.getContentPane().add(graphComponent);
         frame.getContentPane().add(graphComponent);
-        graphComponent.zoomTo(0.5,true);
+//        graphComponent.zoomTo(0.5,true);
         frame.pack();
         frame.setVisible(true);
     }
